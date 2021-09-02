@@ -1,23 +1,60 @@
-import logo from './logo.svg';
-import './App.css';
+import './App.css'
+import { useEffect, useCallback, useState } from 'react'
+import { initBoard, moveBoard } from './helper'
+
+function directionFromKey(key) {
+  switch(key) {
+    case 'j':
+    case 'ArrowDown':
+      return 'down'
+
+    case 'k':
+    case 'ArrowUp':
+      return 'up'
+
+    case 'h':
+    case 'ArrowLeft':
+      return 'left'
+
+    case 'l':
+    case 'ArrowRight':
+      return 'right'
+
+    default:
+      console.log(`Ignoring ${key} since it is not a valid input`)
+  }
+}
 
 function App() {
+  const [gameState, setGameState] = useState(initBoard())
+
+  const handleKeyDown = useCallback((evt) => {
+    const { key } = evt
+    const direction = directionFromKey(key)
+
+    // const newBoard = moveBoard(direction, gameState)
+    // setGameState(newBoard)
+  }, [gameState, setGameState])
+
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [handleKeyDown])
+
   return (
-    <div className="App">
+    <div className="App" onKeyPress={alert}>
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        instructions
+        <button onClick={() => setGameState(initBoard())}>Reset</button>
       </header>
+      <table className="App-board"><tbody>{
+        gameState.map((row, rowIdx) => <tr key={rowIdx}>{
+          row.map((cell, cellIdx) => <td key={cellIdx}>{cell !== 0 && cell}</td>)
+        }</tr>)
+      }</tbody></table>
     </div>
   );
 }
