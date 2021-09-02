@@ -110,10 +110,3 @@ test('additive works', () => {
   `))
 })
 
-describe('yoda', () => {
-  beforeEach((t) => { t.apple = 1})
-
-  test('apple', () => {
-    expect(this.apple).toStrictEqual(1)
-  })
-})
