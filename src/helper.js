@@ -1,16 +1,17 @@
-export function getRandomInt(max) {
+function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-export function initBoard(size = 4) {
+export function initBoard(size = 4, randomPieces = 2) {
   const board = [...Array(size)].map(x=>Array(size).fill(0))
   function setPieceRandomly() {
     const [x, y, i] = [getRandomInt(size), getRandomInt(size), getRandomInt(2)]
     board[x][y] = [2, 4][i]
   }
 
-  setPieceRandomly()
-  setPieceRandomly()
+  for (let i = 0; i < 2; i++)
+    setPieceRandomly()
+
   return board
 }
 
@@ -34,6 +35,8 @@ export function moveBoard(direction, gameState) {
     case 'right':
       yOffset = 1
       break
+    default:
+      return gameState
   }
 
   let x, y

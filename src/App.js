@@ -32,8 +32,8 @@ function App() {
     const { key } = evt
     const direction = directionFromKey(key)
 
-    // const newBoard = moveBoard(direction, gameState)
-    // setGameState(newBoard)
+    const newBoard = moveBoard(direction, gameState)
+    setGameState(newBoard)
   }, [gameState, setGameState])
 
   useEffect(() => {
