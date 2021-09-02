@@ -34,6 +34,8 @@ function App() {
 
     const newBoard = moveBoard(direction, gameState)
     setGameState(newBoard)
+
+    // TODO isGameOver
   }, [gameState, setGameState])
 
   useEffect(() => {
@@ -47,7 +49,7 @@ function App() {
   return (
     <div className="App" onKeyPress={alert}>
       <header className="App-header">
-        instructions
+        2048
         <button onClick={() => setGameState(initBoard())}>Reset</button>
       </header>
       <table className="App-board"><tbody>{
