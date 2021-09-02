@@ -2,8 +2,8 @@
 
 <img width="1075" alt="Screen Shot 2021-09-02 at 9 28 53 AM" src="https://user-images.githubusercontent.com/31588/131897278-0f8fe7d8-0384-405f-ae80-01d1d8c24fda.png">
 
-2048 is a single-player sliding tile puzzle video game originally written by Italian \
-web developer Gabriele Cirulli.\
+2048 is a single-player sliding tile puzzle video game originally written by Italian 
+web developer Gabriele Cirulli.
 This project was my attempt to recreate this game with as little code as possible.
 
 ## Running
