@@ -26,7 +26,7 @@ export function detectSwipe(id, func, deltaMin = 90) {
   }
   function touchmove(e) {
     // Prevent default will stop user from scrolling, use with care
-    // e.preventDefault();
+    e.preventDefault();
     const t = e.touches[0]
     swipe_det.eX = t.screenX
     swipe_det.eY = t.screenY
