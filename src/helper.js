@@ -13,6 +13,10 @@ function placeRandomPiece(board) {
   board[x][y] = [2, 4][i]
 }
 
+export function stub($stub) {
+  placeRandomPiece = $stub;
+}
+
 export function initBoard(size = 4, randomPieces = 2) {
   const board = [...Array(size)].map(x=>Array(size).fill(0))
 
@@ -46,30 +50,8 @@ export function moveBoard(direction, gameState) {
       return gameState
   }
 
-  let x, y
-
-  /* Assume we are moving downwards (v),
-   *  here are the 3 cases we care about.
-   *
-   *  A        |
-   *  0 B   E  v
-   *  0 0   F
-   *  0 C D 0
-   *
-   */
-  function* generateNextHit({x, y, xOffset, yOffset}) {
-    let [destX, destY] = [x, y]
-    do {
-      destX += xOffset
-      destY += yOffset
-      let destValue = newBoard[destX][destY]
-
-      yield { destX, destY, destValue}
-    } while (destX >= 0 && destX < size && destY >= 0 && destY < size)
-  }
-
-  for (x = 0; x < size; x += step) {
-    for (y = 0; y < size; y += step) {
+  for (let x = 0; x < size; x++) {
+    for (let y = 0; y < size; y++) {
       const srcValue = newBoard[x][y]
       if (srcValue === 0) continue
 
