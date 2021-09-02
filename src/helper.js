@@ -50,9 +50,24 @@ export function moveBoard(direction, gameState) {
    *  X C D
    *
    */
+  function* generateNextHit({x, y, xOffset, yOffset}) {
+    let [destX, destY] = [x, y]
+    do {
+      destX += xOffset
+      destY += yOffset
+      destValue = newBoard[destX][destY]
+
+      yield { destX, destY, destValue}
+    } while (destX >= 0 && destX < size && destY >= 0 && destY < size)
+  }
+
   for (x = 0; x < size; x += step) {
     for (y = 0; y < size; y += step) {
       const srcValue = newBoard[x][y]
+      if (srcValue === 0) continue
+
+      newBoard[x][y] = 0
+
 
       let [destX, destY] = [x, y]
       let destValue
