@@ -1,23 +1,28 @@
 import './App.css'
 import { useEffect, useCallback, useState } from 'react'
 import { initBoard, moveBoard } from './helper'
+import { detectSwipe } from './gesture'
 
 function directionFromKey(key) {
   switch(key) {
     case 'j':
     case 'ArrowDown':
+    case 'up': // for gestures
       return 'down'
 
     case 'k':
     case 'ArrowUp':
+    case 'down': // for gestures
       return 'up'
 
     case 'h':
     case 'ArrowLeft':
+    case 'left':
       return 'left'
 
     case 'l':
     case 'ArrowRight':
+    case 'right':
       return 'right'
 
     default:
@@ -40,9 +45,14 @@ function App() {
 
   useEffect(() => {
     document.addEventListener('keydown', handleKeyDown)
+    const { touchstart, touchend, touchmove } =
+      detectSwipe(document, (_, key) => handleKeyDown({ key }))
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('touchstart', touchstart)
+      document.removeEventListener('touchend', touchend)
+      document.removeEventListener('touchmove', touchmove)
     }
   }, [handleKeyDown])
 
