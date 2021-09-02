@@ -2,15 +2,22 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
+function placeRandomPiece(board) {
+  const size = board.length
+  const [x, y, i] = [getRandomInt(size), getRandomInt(size), getRandomInt(2)]
+
+  // go again if cell is occupied
+  if (board[x][y] !== 0)
+    placeRandomPiece(board)
+
+  board[x][y] = [2, 4][i]
+}
+
 export function initBoard(size = 4, randomPieces = 2) {
   const board = [...Array(size)].map(x=>Array(size).fill(0))
-  function setPieceRandomly() {
-    const [x, y, i] = [getRandomInt(size), getRandomInt(size), getRandomInt(2)]
-    board[x][y] = [2, 4][i]
-  }
 
   for (let i = 0; i < 2; i++)
-    setPieceRandomly()
+    placeRandomPiece(board)
 
   return board
 }
@@ -89,6 +96,8 @@ export function moveBoard(direction, gameState) {
       }
     }
   }
+
+  placeRandomPiece(newBoard)
 
   return newBoard
 }
