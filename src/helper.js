@@ -14,6 +14,7 @@ function placeRandomPiece(board) {
 }
 
 export function stub($stub) {
+  // eslint-disable-next-line no-func-assign
   placeRandomPiece = $stub;
 }
 
@@ -31,7 +32,6 @@ export function moveBoard(direction, gameState) {
   const newBoard = gameState.map(row => row.map(x => parseInt(x, 10)))
 
   let [xOffset, yOffset] = [0, 0]
-  let [start, end, step] = [0, size, 1]
 
   switch (direction) {
     case 'up':
